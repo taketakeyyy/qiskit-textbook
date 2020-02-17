@@ -22,4 +22,8 @@ upload_files() {
 
 setup_git
 commit_rst_files $1
-upload_files $1
+if [ $? -eq 0 ]; then
+  upload_files $1
+else
+  echo "Nothing to do."
+fi
