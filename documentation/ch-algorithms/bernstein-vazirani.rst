@@ -9,7 +9,7 @@ quantum algorithm using Qiskit, and run on a simulator and device.
    :local:
 
 
-1. Introduction 
+1. Introduction
 ----------------
 
 The Bernstein-Vazirani algorithm, first introduced in Reference [1], can
@@ -18,7 +18,7 @@ last section. It showed that there can be advantages in using a quantum
 computer as a computational tool for more complex problems compared to
 the Deutsch-Josza problem.
 
-1a. Bernstein-Vazirani Problem  
+1a. Bernstein-Vazirani Problem
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We are again given a hidden function Boolean :math:`f`, which takes as
@@ -29,8 +29,8 @@ that is:
 
    <center>
 
-$f({x_0,x_1,x_2,…}) :raw-latex:`\rightarrow `0
-:raw-latex:`\textrm{ or }` 1 :raw-latex:`\textrm{ where }` x_n
+$f({x\_0,x\_1,x\_2,...}) :raw-latex:`\rightarrow `0
+:raw-latex:`\textrm{ or }` 1 :raw-latex:`\textrm{ where }` x\_n
 :raw-latex:`\textrm{ is }`0 :raw-latex:`\textrm{ or }` 1 $.
 
 Instead of the function being balanced or constant as in the
@@ -40,7 +40,7 @@ words, given an input :math:`x`,
 :math:`f(x) = s \cdot x \, \text{(mod 2)}`. We are expected to find
 :math:`s`.
 
-1b. Bernstein-Vazirani Algorithm  
+1b. Bernstein-Vazirani Algorithm
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Classical Solution
@@ -98,7 +98,7 @@ otherwise. This means we have the following transformation:
 .. math::
 
 
-   |x \rangle \xrightarrow{f_a} | x \rangle = (-1)^{a\cdot x} |x \rangle. 
+   |x \rangle \xrightarrow{f_a} | x \rangle = (-1)^{a\cdot x} |x \rangle.
 
 The algorithm to reveal the hidden integer follows naturally by querying
 the quantum oracle :math:`f_a` with the quantum superposition obtained
@@ -117,10 +117,10 @@ Because the inverse of the :math:`n` Hadamard gates is again the
 
    \frac{1}{\sqrt{2^n}} \sum_{x\in \{0,1\}^n} (-1)^{a\cdot x}|x\rangle \xrightarrow{H^{\otimes n}} |a\rangle.
 
-2. Example 
+2. Example
 -----------
 
-Let’s go through a specific example for :math:`n=2` qubits and a secret
+Let's go through a specific example for :math:`n=2` qubits and a secret
 string :math:`s=11`. Note that we are following the formulation in
 Reference [2] that generates a circuit for the Bernstein-Vazirani
 quantum oracle using only one register.
@@ -129,11 +129,9 @@ quantum oracle using only one register.
 
    <ol>
 
-.. raw:: html
+::
 
-   <li>
-
-The register of two qubits is initialized to zero:
+    <li> The register of two qubits is initialized to zero:
 
 .. math:: \lvert \psi_0 \rangle = \lvert 0 0 \rangle
 
@@ -147,7 +145,7 @@ The register of two qubits is initialized to zero:
 
 Apply a Hadamard gate to both qubits:
 
-.. math:: \lvert \psi_1 \rangle = \frac{1}{2} \left( \lvert 0 0 \rangle + \lvert 0 1 \rangle + \lvert 1 0 \rangle + \lvert 1 1 \rangle \right) 
+.. math:: \lvert \psi_1 \rangle = \frac{1}{2} \left( \lvert 0 0 \rangle + \lvert 0 1 \rangle + \lvert 1 0 \rangle + \lvert 1 1 \rangle \right)
 
 .. raw:: html
 
@@ -192,7 +190,7 @@ Measure to find the secret string :math:`s=11`
 
    </ol>
 
-3. Qiskit Implementation 
+3. Qiskit Implementation
 -------------------------
 
 We now implement the Bernstein-Vazirani algorithm with Qiskit for a two
@@ -205,12 +203,12 @@ bit function with :math:`s=11`.
     %matplotlib inline
     %config InlineBackend.figure_format = 'svg' # Makes the images look nice
     import numpy as np
-    
+
     # importing Qiskit
     from qiskit import IBMQ, BasicAer
     from qiskit.providers.ibmq import least_busy
     from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister, execute
-    
+
     # import basic plot tools
     from qiskit.visualization import plot_histogram
 
@@ -221,8 +219,8 @@ integer :math:`s` to be found by the algorithm. The hidden integer
 .. code:: ipython3
 
     nQubits = 2 # number of physical qubits used to represent s
-    s = 3       # the hidden integer 
-    
+    s = 3       # the hidden integer
+
     # make sure that a can be represented with nqubits
     s = s % 2**(nQubits)
 
@@ -235,37 +233,37 @@ We then use Qiskit to program the Bernstein-Vazirani algorithm.
     qr = QuantumRegister(nQubits)
     # bits for recording the measurement on qr
     cr = ClassicalRegister(nQubits)
-    
+
     bvCircuit = QuantumCircuit(qr, cr)
     barriers = True
-    
+
     # Apply Hadamard gates before querying the oracle
     for i in range(nQubits):
         bvCircuit.h(qr[i])
-        
-    # Apply barrier 
+
+    # Apply barrier
     if barriers:
         bvCircuit.barrier()
-    
+
     # Apply the inner-product oracle
     for i in range(nQubits):
         if (s & (1 << i)):
             bvCircuit.z(qr[i])
         else:
             bvCircuit.iden(qr[i])
-            
-    # Apply barrier 
+
+    # Apply barrier
     if barriers:
         bvCircuit.barrier()
-    
+
     #Apply Hadamard gates after querying the oracle
     for i in range(nQubits):
         bvCircuit.h(qr[i])
-        
-    # Apply barrier 
+
+    # Apply barrier
     if barriers:
         bvCircuit.barrier()
-    
+
     # Measurement
     bvCircuit.measure(qr, cr)
 
@@ -289,7 +287,7 @@ We then use Qiskit to program the Bernstein-Vazirani algorithm.
 
 
 
-3a. Experiment with Simulators 
+3a. Experiment with Simulators
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We can run the above circuit on the simulator.
@@ -301,7 +299,7 @@ We can run the above circuit on the simulator.
     shots = 1024
     results = execute(bvCircuit, backend=backend, shots=shots).result()
     answer = results.get_counts()
-    
+
     plot_histogram(answer)
 
 
@@ -314,7 +312,7 @@ We can run the above circuit on the simulator.
 We can see that the result of the measurement is the binary
 representation of the hidden integer :math:`3` :math:`(11)`.
 
-3b. Experiment with Real Devices 
+3b. Experiment with Real Devices
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We can run the circuit on the real device as below.
@@ -340,10 +338,10 @@ We can run the circuit on the real device as below.
 
     # Run our circuit on the least busy backend. Monitor the execution of the job in the queue
     from qiskit.tools.monitor import job_monitor
-    
+
     shots = 1024
     job = execute(bvCircuit, backend=backend, shots=shots)
-    
+
     job_monitor(job, interval = 2)
 
 
@@ -357,7 +355,7 @@ We can run the circuit on the real device as below.
     # Get the results from the computation
     results = job.result()
     answer = results.get_counts()
-    
+
     plot_histogram(answer)
 
 
@@ -370,7 +368,7 @@ We can run the circuit on the real device as below.
 As we can see, most of the results are :math:`11`. The other results are
 due to errors in the quantum computation.
 
-4. Problems 
+4. Problems
 ------------
 
 1. The above `implementation <#implementation>`__ of Bernstein-Vazirani
@@ -382,16 +380,16 @@ due to errors in the quantum computation.
    implementation for a secret string os :math:`s = 1110110101`. Are the
    results what you expect? Explain.
 
-5. References 
+5. References
 --------------
 
-1. Ethan Bernstein and Umesh Vazirani (1997) “Quantum Complexity Theory”
-   SIAM Journal on Computing, Vol. 26, No. 5: 1411-1473,
+1. Ethan Bernstein and Umesh Vazirani (1997) "Quantum Complexity Theory"
+   SIAM Journal on Computing, Vol. 26, No. 5: 1411-1473,
    `doi:10.1137/S0097539796300921 <https://doi.org/10.1137/S0097539796300921>`__.
 2. Jiangfeng Du, Mingjun Shi, Jihui Wu, Xianyi Zhou, Yangmei Fan,
-   BangJiao Ye, Rongdian Han (2001) “Implementation of a quantum
+   BangJiao Ye, Rongdian Han (2001) "Implementation of a quantum
    algorithm to solve the Bernstein-Vazirani parity problem without
-   entanglement on an ensemble quantum computer”, Phys. Rev. A 64,
+   entanglement on an ensemble quantum computer", Phys. Rev. A 64,
    042306,
    `10.1103/PhysRevA.64.042306 <https://doi.org/10.1103/PhysRevA.64.042306>`__,
    `arXiv:quant-ph/0012114 <https://arxiv.org/abs/quant-ph/0012114>`__.
@@ -412,6 +410,5 @@ due to errors in the quantum computation.
      'qiskit-ibmq-provider': '0.4.6',
      'qiskit-aqua': '0.6.4',
      'qiskit': '0.15.0'}
-
 
 
