@@ -16,8 +16,8 @@ script:
   - bash scripts/travis/convert-modified-notebooks.sh $TRAVIS_COMMIT_RANGE
 
 deploy:
-  provider: script
   skip_cleanup: true
-  script: scripts/travis/push-rst.sh a-la-iqx
+  provider: script
+  script: bash scripts/travis/push-rst.sh a-la-iqx
   on:
     branch: a-la-iqx
