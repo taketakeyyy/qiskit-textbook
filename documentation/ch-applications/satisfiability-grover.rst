@@ -263,8 +263,8 @@ QASM on real-device ``ibmq_16_melbourne`` backend as follows:
 
 .. parsed-literal::
 
-    gates =  OrderedDict([('cx', 366), ('u3', 120), ('u2', 79), ('u1', 74), ('measure', 3), ('barrier', 2)])
-    depth =  408
+    gates =  OrderedDict([('cx', 379), ('u3', 151), ('u1', 74), ('u2', 65), ('measure', 3), ('barrier', 2)])
+    depth =  402
 
 
 The number of gates needed is far above the limits regarding decoherence
@@ -296,11 +296,11 @@ other optimization problems.
 
 .. parsed-literal::
 
-    {'qiskit-terra': '0.11.1',
-     'qiskit-aer': '0.3.4',
+    {'qiskit-terra': '0.12.0',
+     'qiskit-aer': '0.4.0',
      'qiskit-ignis': '0.2.0',
-     'qiskit-ibmq-provider': '0.4.5',
-     'qiskit-aqua': '0.6.2',
-     'qiskit': '0.14.1'}
+     'qiskit-ibmq-provider': '0.4.6',
+     'qiskit-aqua': '0.6.4',
+     'qiskit': '0.15.0'}
 
 

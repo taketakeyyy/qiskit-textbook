@@ -26,17 +26,6 @@ has to be mostly executed in order.
    :local:
 
 
-Part 2. Calibrating and using a :math:`\pi` pulse A. `Calibrating
-:math:`\pi` pulses using a Rabi experiment <#rabi>`__ B. `Determining 0
-vs 1 <#zerovone>`__ C. `Measuring :math:`T_1` using inversion
-recovery <#T1>`__
-
-Part 3. Determining qubit coherence A. `Measuring the qubit frequency
-precisely using a Ramsey experiment <#ramsey>`__ B. `Measuring
-:math:`T_2` using Hahn echoes <#hahn>`__
-
-Part 4. `References <#refs>`__
-
 0. Getting started 
 -------------------
 
@@ -47,9 +36,8 @@ backend.
 
 .. code:: ipython3
 
-    import warnings
-    warnings.filterwarnings('ignore')
     from qiskit.tools.jupyter import *
+    %config InlineBackend.figure_format = 'svg' # Makes the images look nice
     
     from qiskit import IBMQ
     IBMQ.load_account()
@@ -81,10 +69,17 @@ as we build and execute our calibration routines.
     Sampling time: 0.2222222222222222 ns
 
 
-The backend defaults provide a starting point for how to use the
-backend. It contains estimates for qubit frequencies and default
-programs to enact basic quantum operators. We can access them with the
-following:
+.. parsed-literal::
+
+    /usr/local/anaconda3/lib/python3.7/site-packages/qiskit/providers/models/backendconfiguration.py:355: UserWarning: `dt` and `dtm` now have units of seconds(s) rather than nanoseconds(ns).
+      warnings.warn('`dt` and `dtm` now have units of seconds(s) rather '
+
+
+You may see a warning reminding existing Qiskit users that some units
+have changed, we can safely ignore this. The backend defaults provide a
+starting point for how to use the backend. It contains estimates for
+qubit frequencies and default programs to enact basic quantum operators.
+We can access them with the following:
 
 .. code:: ipython3
 
@@ -160,12 +155,19 @@ window of 40 MHz around the estimated qubit frequency in
 
 .. parsed-literal::
 
-    Qubit 0 has an estimated frequency of 4.97429139400153 GHz.
-    The sweep will go from 4.95429139400153 GHz to 4.99429139400153 GHz in steps of 1.0 MHz.
+    Qubit 0 has an estimated frequency of 4.974281856834276 GHz.
+    The sweep will go from 4.954281856834276 GHz to 4.994281856834276 GHz in steps of 1.0 MHz.
 
 
-Next, we define the pulses we will use for our experiment. We will start
-with the drive pulse, which is a Gaussian pulse.
+.. parsed-literal::
+
+    /usr/local/anaconda3/lib/python3.7/site-packages/qiskit/providers/models/pulsedefaults.py:155: UserWarning: `qubit_freq_est` and `meas_freq_est` now have units of Hertz(Hz) rather than gigahertz(GHz).
+      warnings.warn('`qubit_freq_est` and `meas_freq_est` now have units of '
+
+
+You may see another unit change warning which we can again safely
+ignore. Next, we define the pulses we will use for our experiment. We
+will start with the drive pulse, which is a Gaussian pulse.
 
 Remember the value ``dt`` from earlier? All durations in pulse are given
 in terms of ``dt``. In the next cell, we define the length of the drive
@@ -268,7 +270,7 @@ schedule. This is done using ``schedule.draw()`` as shown below.
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_26_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_26_0.svg
 
 
 
@@ -298,6 +300,14 @@ for the ``'avg'`` of the results, rather than each shot individually.
                                        shots=num_shots_per_frequency,
                                        schedule_los=schedule_frequencies)
 
+
+.. parsed-literal::
+
+    /usr/local/anaconda3/lib/python3.7/site-packages/qiskit/providers/models/backendconfiguration.py:377: UserWarning: `rep_time` now has units of seconds(s) rather than microseconds(mu s).
+      warnings.warn('`rep_time` now has units of seconds(s) rather '
+
+
+You may see yet another unit change warning, we can safely ignore this.
 Finally, we can run the assembled program on the backend using:
 
 .. code:: ipython3
@@ -339,7 +349,7 @@ We will extract the results and plot them using ``matplotlib``:
         # Get the results for `qubit` from this experiment
         sweep_values.append(res[qubit])
     
-    plt.scatter(frequencies_GHz, sweep_values, color='black') # plot real part of sweep values
+    plt.scatter(frequencies_GHz, np.real(sweep_values), color='black') # plot real part of sweep values
     plt.xlim([min(frequencies_GHz), max(frequencies_GHz)])
     plt.xlabel("Frequency [GHz]")
     plt.ylabel("Measured signal [a.u.]")
@@ -347,7 +357,7 @@ We will extract the results and plot them using ``matplotlib``:
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_36_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_36_0.svg
 
 
 As you can see above, the peak near the center corresponds to the
@@ -370,14 +380,14 @@ is typically a Lorentzian shape.
 .. code:: ipython3
 
     fit_params, y_fit = fit_function(frequencies_GHz,
-                                     sweep_values, 
+                                     np.real(sweep_values), 
                                      lambda x, A, q_freq, B, C: (A / np.pi) * (B / ((x - q_freq)**2 + B**2)) + C,
                                      [5, 4.975, 1, 3] # initial parameters for curve_fit
                                     )
 
 .. code:: ipython3
 
-    plt.scatter(frequencies_GHz, sweep_values, color='black')
+    plt.scatter(frequencies_GHz, np.real(sweep_values), color='black')
     plt.plot(frequencies_GHz, y_fit, color='red')
     plt.xlim([min(frequencies_GHz), max(frequencies_GHz)])
     
@@ -387,7 +397,7 @@ is typically a Lorentzian shape.
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_40_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_40_0.svg
 
 
 .. code:: ipython3
@@ -400,11 +410,11 @@ is typically a Lorentzian shape.
 
 .. parsed-literal::
 
-    We've updated our qubit frequency estimate from 4.97429 GHz to 4.97435 GHz.
+    We've updated our qubit frequency estimate from 4.97428 GHz to 4.97433 GHz.
 
 
-Part 2. Calibrating and using a :math:`\pi` pulse
-=================================================
+Part 2. Calibrating and using a :math:`\pi` pulse 
+==================================================
 
 A. Calibrating :math:`\pi` pulses using a Rabi experiment 
 ----------------------------------------------------------
@@ -422,8 +432,6 @@ shown on the Bloch sphere in the figure below – you can see that the
 :math:`\pi` pulse gets its name from the angle it sweeps over on a Bloch
 sphere.
 
-.. figure:: https://github.com/aasfaw/qiskit-intros/blob/master/zero_to_one_X180.png?raw=true
-   :alt: image1
 
 
 We will change the drive amplitude in small increments and measuring the
@@ -473,7 +481,7 @@ modulation frequency.
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_48_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_48_0.svg
 
 
 
@@ -538,7 +546,7 @@ this gives the calibrated amplitude that enacts a :math:`\pi` pulse.
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_54_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_54_0.svg
 
 
 .. code:: ipython3
@@ -564,7 +572,7 @@ this gives the calibrated amplitude that enacts a :math:`\pi` pulse.
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_55_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_55_0.svg
 
 
 .. code:: ipython3
@@ -575,7 +583,7 @@ this gives the calibrated amplitude that enacts a :math:`\pi` pulse.
 
 .. parsed-literal::
 
-    Pi Amplitude = 0.24926196161156502
+    Pi Amplitude = 0.24780331451589943
 
 
 Our :math:`\pi` pulse!
@@ -622,7 +630,7 @@ is simply a function which takes a measured and kerneled complex value
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_62_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_62_0.svg
 
 
 
@@ -633,7 +641,7 @@ is simply a function which takes a measured and kerneled complex value
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_63_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_63_0.svg
 
 
 
@@ -711,7 +719,7 @@ preparation program in red. Note: If the populations irregularly shaped
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_69_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_69_0.svg
 
 
 We can clearly see that the two populations of :math:`|0\rangle` and
@@ -787,7 +795,7 @@ will see the measurement pulse start later as you increase
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_76_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_76_0.svg
 
 
 
@@ -824,6 +832,7 @@ will see the measurement pulse start later as you increase
     t1_values = []
     for i in range(len(times_us)):
         t1_values.append(t1_results.get_memory(i)[qubit]*scale_factor)
+    t1_values = np.real(t1_values)
     
     plt.scatter(times_us, t1_values, color='black') 
     plt.title("$T_1$ Experiment", fontsize=15)
@@ -833,7 +842,7 @@ will see the measurement pulse start later as you increase
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_80_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_80_0.svg
 
 
 We can then fit the data to a decaying exponential, giving us T1!
@@ -859,11 +868,11 @@ We can then fit the data to a decaying exponential, giving us T1!
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_82_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_82_0.svg
 
 
-Part 3. Determining qubit coherence
-===================================
+Part 3. Determining qubit coherence 
+====================================
 
 A. Measuring the qubit frequency precisely using a Ramsey experiment 
 ---------------------------------------------------------------------
@@ -876,8 +885,6 @@ signal from the qubit at the same frequency as the pulses, we should
 observe oscillations at the difference in frequency between the applied
 pulses and the qubit.
 
-.. figure:: https://github.com/aasfaw/qiskit-intros/blob/master/dephasing.png?raw=true
-   :alt: image2
 
 
 .. code:: ipython3
@@ -923,7 +930,7 @@ delay between the two :math:`\pi/2` pulses will increase.
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_88_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_88_0.svg
 
 
 
@@ -971,7 +978,7 @@ qubit frequency.
     for i in range(len(times_us)):
         ramsey_values.append(ramsey_results.get_memory(i)[qubit]*scale_factor)
         
-    plt.scatter(times_us, ramsey_values, color='black')
+    plt.scatter(times_us, np.real(ramsey_values), color='black')
     plt.xlim(0, np.max(times_us))
     plt.title("Ramsey Experiment", fontsize=15)
     plt.xlabel('Delay between X90 pulses [$\mu$s]', fontsize=15)
@@ -980,7 +987,7 @@ qubit frequency.
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_93_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_93_0.svg
 
 
 We will fit the data to a sinusoid, and extract the information we are
@@ -988,7 +995,7 @@ interested in – namely, :math:`\Delta f`.
 
 .. code:: ipython3
 
-    fit_params, y_fit = fit_function(times_us, ramsey_values,
+    fit_params, y_fit = fit_function(times_us, np.real(ramsey_values),
                                      lambda x, A, del_f_MHz, C, B: (
                                               A * np.cos(2*np.pi*del_f_MHz*x - C) + B
                                              ),
@@ -998,7 +1005,7 @@ interested in – namely, :math:`\Delta f`.
     # Off-resonance component
     _, del_f_MHz, _, _, = fit_params # freq is MHz since times in us
     
-    plt.scatter(times_us, ramsey_values, color='black')
+    plt.scatter(times_us, np.real(ramsey_values), color='black')
     plt.plot(times_us, y_fit, color='red', label=f"df = {del_f_MHz:.2f} MHz")
     plt.xlim(0, np.max(times_us))
     plt.xlabel('Delay between X90 pulses [$\mu$s]', fontsize=15)
@@ -1009,7 +1016,7 @@ interested in – namely, :math:`\Delta f`.
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_95_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_95_0.svg
 
 
 Now that we know ``del_f_MHz``, we can update our estimate of the qubit
@@ -1024,7 +1031,7 @@ frequency.
 
 .. parsed-literal::
 
-    Our updated qubit frequency is now 4.974399 GHz. It used to be 4.974351 GHz
+    Our updated qubit frequency is now 4.974376 GHz. It used to be 4.974332 GHz
 
 
 B. Measuring :math:`T_2` using Hahn echoes 
@@ -1072,7 +1079,7 @@ The decay time for the Hahn echo experiment gives us the coherence time,
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_101_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_101_0.svg
 
 
 
@@ -1111,7 +1118,7 @@ The decay time for the Hahn echo experiment gives us the coherence time,
     for i in range(len(taus_us)):
         t2_values.append(t2_results.get_memory(i)[qubit]*scale_factor)
     
-    plt.scatter(2*taus_us, t2_values, color='black')
+    plt.scatter(2*taus_us, np.real(t2_values), color='black')
     plt.xlabel('Delay between X90 pulse and $\pi$ pulse [$\mu$s]', fontsize=15)
     plt.ylabel('Measured Signal [a.u.]', fontsize=15)
     plt.title('Hahn Echo Experiment', fontsize=15)
@@ -1119,19 +1126,19 @@ The decay time for the Hahn echo experiment gives us the coherence time,
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_105_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_105_0.svg
 
 
 .. code:: ipython3
 
-    fit_params, y_fit = fit_function(2*taus_us, t2_values,
+    fit_params, y_fit = fit_function(2*taus_us, np.real(t2_values),
                  lambda x, A, B, T2: (A * np.exp(-x / T2) + B),
                  [-3, 0, 100])
     
     _, _, T2 = fit_params
     print()
     
-    plt.scatter(2*taus_us, t2_values, color='black')
+    plt.scatter(2*taus_us, np.real(t2_values), color='black')
     plt.plot(2*taus_us, y_fit, color='red', label=f"T2 = {T2:.2f} us")
     plt.xlim(0, np.max(2*taus_us))
     plt.xlabel('Delay between X90 pulse and $\pi$ pulse [$\mu$s]', fontsize=15)
@@ -1147,7 +1154,7 @@ The decay time for the Hahn echo experiment gives us the coherence time,
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_106_1.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_106_1.svg
 
 
 C. Dynamical decoupling 
@@ -1201,7 +1208,7 @@ and is used to extract longer coherence times from qubits.
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_110_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_110_0.svg
 
 
 
@@ -1240,7 +1247,7 @@ and is used to extract longer coherence times from qubits.
     for i in range(len(taus_us)):
         DD_values.append(T2DD_results.get_memory(i)[qubit]*scale_factor)
     
-    plt.scatter(times_us, DD_values, color='black')
+    plt.scatter(times_us, np.real(DD_values), color='black')
     plt.xlim(0, np.max(times_us))
     plt.xlabel('Total time before measurement [$\mu$s]', fontsize=15)
     plt.ylabel('Measured Signal [a.u.]', fontsize=15)
@@ -1249,17 +1256,17 @@ and is used to extract longer coherence times from qubits.
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_114_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_114_0.svg
 
 
 .. code:: ipython3
 
     # Fit the data
     fit_func = lambda x, A, B, T2DD: (A * np.exp(-x / T2DD) + B)
-    fitparams, conv = curve_fit(fit_func, times_us, DD_values, [3.5, 0.8, 150])
+    fitparams, conv = curve_fit(fit_func, times_us, np.real(DD_values), [3.5, 0.8, 150])
     
     _, _, T2DD = fitparams
-    plt.scatter(times_us, DD_values, color='black')
+    plt.scatter(times_us, np.real(DD_values), color='black')
     plt.plot(times_us, fit_func(times_us, *fitparams), color='red', label=f"T2DD = {T2DD:.2f} us")
     plt.xlim([0, np.max(times_us)])
     plt.xlabel('Total time before measurement [$\mu$s]', fontsize=15)
@@ -1270,7 +1277,7 @@ and is used to extract longer coherence times from qubits.
 
 
 
-.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_115_0.png
+.. image:: calibrating-qubits-openpulse_files/calibrating-qubits-openpulse_115_0.svg
 
 
 Part 4. References 
@@ -1325,7 +1332,7 @@ Part 4. References
 
 .. raw:: html
 
-    <h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td>Qiskit</td><td>0.15.0</td></tr><tr><td>Terra</td><td>0.12.0</td></tr><tr><td>Aer</td><td>0.4.0</td></tr><tr><td>Ignis</td><td>0.2.0</td></tr><tr><td>Aqua</td><td>0.6.4</td></tr><tr><td>IBM Q Provider</td><td>0.4.6</td></tr><tr><th>System information</th></tr><tr><td>Python</td><td>3.7.3 (default, Mar 27 2019, 16:54:48) 
-    [Clang 4.0.1 (tags/RELEASE_401/final)]</td></tr><tr><td>OS</td><td>Darwin</td></tr><tr><td>CPUs</td><td>8</td></tr><tr><td>Memory (Gb)</td><td>16.0</td></tr><tr><td colspan='2'>Sun Feb 09 17:56:06 2020 EST</td></tr></table>
+    <h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td>Qiskit</td><td>0.15.0</td></tr><tr><td>Terra</td><td>0.12.0</td></tr><tr><td>Aer</td><td>0.4.0</td></tr><tr><td>Ignis</td><td>0.2.0</td></tr><tr><td>Aqua</td><td>0.6.4</td></tr><tr><td>IBM Q Provider</td><td>0.4.6</td></tr><tr><th>System information</th></tr><tr><td>Python</td><td>3.7.6 (default, Jan  8 2020, 13:42:34) 
+    [Clang 4.0.1 (tags/RELEASE_401/final)]</td></tr><tr><td>OS</td><td>Darwin</td></tr><tr><td>CPUs</td><td>8</td></tr><tr><td>Memory (Gb)</td><td>32.0</td></tr><tr><td colspan='2'>Mon Feb 17 10:38:54 2020 GMT</td></tr></table>
 
 

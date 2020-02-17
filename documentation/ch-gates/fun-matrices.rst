@@ -260,12 +260,12 @@ universality.
 
 .. parsed-literal::
 
-    {'qiskit-terra': '0.11.1',
-     'qiskit-aer': '0.3.4',
+    {'qiskit-terra': '0.12.0',
+     'qiskit-aer': '0.4.0',
      'qiskit-ignis': '0.2.0',
-     'qiskit-ibmq-provider': '0.4.5',
-     'qiskit-aqua': '0.6.2',
-     'qiskit': '0.14.1'}
+     'qiskit-ibmq-provider': '0.4.6',
+     'qiskit-aqua': '0.6.4',
+     'qiskit': '0.15.0'}
 
 
 

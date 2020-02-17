@@ -124,7 +124,15 @@ out ``h()``.
     ----> 1 qc.h()
     
 
-    TypeError: h() missing 1 required positional argument: 'q'
+    /usr/local/anaconda3/lib/python3.7/site-packages/qiskit/util.py in wrapper(*args, **kwargs)
+        106             if kwargs:
+        107                 _rename_kwargs(func.__name__, kwargs, kwarg_map)
+    --> 108             return func(*args, **kwargs)
+        109         return wrapper
+        110     return decorator
+
+
+    TypeError: h() missing 1 required positional argument: 'qubit'
 
 
 Here we got an error, because we didn’t tell the operation which qubit
@@ -140,7 +148,7 @@ individually addressed as ``qr[0]`` and ``qr[1]``.
 
 .. parsed-literal::
 
-    <qiskit.circuit.instructionset.InstructionSet at 0x7fd7e0f8b550>
+    <qiskit.circuit.instructionset.InstructionSet at 0x7fc768e6ed50>
 
 
 
@@ -204,7 +212,8 @@ A list of all possible simulators in Aer can be found using
 
     [<QasmSimulator('qasm_simulator') from AerProvider()>,
      <StatevectorSimulator('statevector_simulator') from AerProvider()>,
-     <UnitarySimulator('unitary_simulator') from AerProvider()>]
+     <UnitarySimulator('unitary_simulator') from AerProvider()>,
+     <PulseSimulator('pulse_simulator') from AerProvider()>]
 
 
 
@@ -252,13 +261,14 @@ state.
     new_qc = QuantumCircuit( qr )
     
     new_qc.initialize( ket, qr )
-    
-    new_qc.draw(output='mpl')
 
 
 
 
-.. image:: qiskit_files/qiskit_35_0.svg
+
+.. parsed-literal::
+
+    <qiskit.circuit.instructionset.InstructionSet at 0x7fc778a41910>
 
 
 
@@ -320,7 +330,7 @@ dictionary.
 
 .. parsed-literal::
 
-    {'00': 4077, '11': 4115}
+    {'11': 4168, '00': 4024}
 
 
 We can even get Qiskit to plot it as a histogram.
@@ -350,7 +360,7 @@ results.
 
 .. parsed-literal::
 
-    ['11', '00', '11', '00', '11', '00', '11', '00', '00', '00']
+    ['00', '00', '00', '11', '11', '11', '00', '00', '00', '00']
 
 
 Note that the bits are labelled from right to left. So ``cr[0]`` is the
@@ -557,15 +567,15 @@ We can see what they are up to with the ``status()`` method.
 
 .. parsed-literal::
 
-    BackendStatus(backend_name='ibmq_qasm_simulator', backend_version='0.1.547', operational=True, pending_jobs=0, status_msg='active')
-    BackendStatus(backend_name='ibmqx2', backend_version='2.0.5', operational=True, pending_jobs=40, status_msg='active')
-    BackendStatus(backend_name='ibmq_16_melbourne', backend_version='2.0.1', operational=True, pending_jobs=19, status_msg='active')
+    BackendStatus(backend_name='ibmq_qasm_simulator', backend_version='0.1.547', operational=True, pending_jobs=1, status_msg='active')
+    BackendStatus(backend_name='ibmqx2', backend_version='2.0.5', operational=True, pending_jobs=1, status_msg='active')
+    BackendStatus(backend_name='ibmq_16_melbourne', backend_version='2.0.4', operational=True, pending_jobs=13, status_msg='active')
     BackendStatus(backend_name='ibmq_vigo', backend_version='1.0.2', operational=True, pending_jobs=4, status_msg='active')
-    BackendStatus(backend_name='ibmq_ourense', backend_version='1.0.1', operational=True, pending_jobs=11, status_msg='active')
-    BackendStatus(backend_name='ibmq_london', backend_version='1.0.0', operational=True, pending_jobs=3, status_msg='active')
-    BackendStatus(backend_name='ibmq_burlington', backend_version='1.1.4', operational=True, pending_jobs=3, status_msg='active')
-    BackendStatus(backend_name='ibmq_essex', backend_version='1.0.1', operational=True, pending_jobs=8, status_msg='active')
-    BackendStatus(backend_name='ibmq_armonk', backend_version='1.1.0', operational=True, pending_jobs=17, status_msg='calibrating')
+    BackendStatus(backend_name='ibmq_ourense', backend_version='1.0.1', operational=True, pending_jobs=3, status_msg='active')
+    BackendStatus(backend_name='ibmq_london', backend_version='1.0.0', operational=True, pending_jobs=25, status_msg='active')
+    BackendStatus(backend_name='ibmq_burlington', backend_version='1.1.4', operational=True, pending_jobs=1, status_msg='active')
+    BackendStatus(backend_name='ibmq_essex', backend_version='1.0.1', operational=True, pending_jobs=3, status_msg='active')
+    BackendStatus(backend_name='ibmq_armonk', backend_version='1.1.0', operational=True, pending_jobs=1, status_msg='active')
 
 
 Let’s get the backend object for the largest public device.
@@ -585,13 +595,20 @@ We can also extract some of its properties.
     coupling_map = real_device.configuration().coupling_map
 
 From this we can construct a noise model to mimic the noise on the
-device.
+device (we will discuss noise models further later in the textbook).
 
 .. code:: ipython3
 
     from qiskit.providers.aer import noise
     
     noise_model = noise.device.basic_device_noise_model(properties)
+
+
+.. parsed-literal::
+
+    /usr/local/anaconda3/lib/python3.7/site-packages/qiskit/providers/aer/noise/device/basic_device_model.py:112: DeprecationWarning: This function is been deprecated and moved to a method of the`NoiseModel` class. For equivalent functionality use `NoiseModel.from_backend(properties, **kwargs).
+      DeprecationWarning)
+
 
 And then run the job on the emulator, with it reproducing all these
 features of the real device. Here’s an example with a circuit that
@@ -615,7 +632,7 @@ should output ``'10'`` in the noiseless case.
 
 .. parsed-literal::
 
-    {'00': 54, '01': 1, '10': 968, '11': 1}
+    {'10': 907, '11': 2, '00': 115}
 
 
 
@@ -632,12 +649,16 @@ qubits and quantum circuits are all about.
 
 .. parsed-literal::
 
-    {'qiskit-terra': '0.11.1',
-     'qiskit-aer': '0.3.4',
+    {'qiskit-terra': '0.12.0',
+     'qiskit-aer': '0.4.0',
      'qiskit-ignis': '0.2.0',
-     'qiskit-ibmq-provider': '0.4.5',
-     'qiskit-aqua': '0.6.2',
-     'qiskit': '0.14.1'}
+     'qiskit-ibmq-provider': '0.4.6',
+     'qiskit-aqua': '0.6.4',
+     'qiskit': '0.15.0'}
+
+
+
+
 
 
 

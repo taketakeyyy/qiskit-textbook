@@ -509,15 +509,8 @@ network package to encode the graph and plot connectivity below.
     nx.draw_networkx(G, node_color=colors, node_size=600, alpha=1, ax=default_axes, pos=pos)
 
 
-.. parsed-literal::
 
-    /usr/local/anaconda3/lib/python3.7/site-packages/networkx/drawing/nx_pylab.py:579: MatplotlibDeprecationWarning: 
-    The iterable function was deprecated in Matplotlib 3.1 and will be removed in 3.3. Use np.iterable instead.
-      if not cb.iterable(width):
-
-
-
-.. image:: qaoa_files/qaoa_10_1.svg
+.. image:: qaoa_files/qaoa_10_0.svg
 
 
 5.2 Optimal trial state parameters
@@ -800,7 +793,7 @@ simulated data. We will use the obtained results to
     
     The sampled mean value is M1_sampled = 3.28 while the true value is M1 = 3.43 
     
-    The approximate solution is x* = 10100 with C(x*) = 4 
+    The approximate solution is x* = 10001 with C(x*) = 4 
     
     The cost function is distributed as: 
     
@@ -893,9 +886,9 @@ experimental result.
     
      --- EXPERIMENTAL RESULTS ---
     
-    The sampled mean value is M1_sampled = 3.04 while the true value is M1 = 3.43 
+    The sampled mean value is M1_sampled = 2.99 while the true value is M1 = 3.43 
     
-    The approximate solution is x* = 10100 with C(x*) = 4 
+    The approximate solution is x* = 10001 with C(x*) = 4 
     
     The cost function is distributed as: 
     
@@ -984,11 +977,11 @@ experimental result.
 
 .. parsed-literal::
 
-    {'qiskit-terra': '0.11.1',
-     'qiskit-aer': '0.3.4',
+    {'qiskit-terra': '0.12.0',
+     'qiskit-aer': '0.4.0',
      'qiskit-ignis': '0.2.0',
-     'qiskit-ibmq-provider': '0.4.5',
-     'qiskit-aqua': '0.6.2',
-     'qiskit': '0.14.1'}
+     'qiskit-ibmq-provider': '0.4.6',
+     'qiskit-aqua': '0.6.4',
+     'qiskit': '0.15.0'}
 
 

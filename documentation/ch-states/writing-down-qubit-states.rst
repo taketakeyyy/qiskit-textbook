@@ -433,7 +433,7 @@ statistical noise).
 
 .. parsed-literal::
 
-    The total uncertainty is 0.9975615292787552
+    The total uncertainty is 1.00687737762928
 
 
 Now we have found this rule, let’s try to break it! Then we can hope to
@@ -622,7 +622,7 @@ total certainty.
 
 .. parsed-literal::
 
-    The total uncertainty is 1.0046265721321106
+    The total uncertainty is 0.9918823540210724
 
 
 For more than one qubit, this relation will need another upgrade. This
@@ -646,11 +646,11 @@ states and gates.
 
 .. parsed-literal::
 
-    {'qiskit-terra': '0.11.1',
-     'qiskit-aer': '0.3.4',
+    {'qiskit-terra': '0.12.0',
+     'qiskit-aer': '0.4.0',
      'qiskit-ignis': '0.2.0',
-     'qiskit-ibmq-provider': '0.4.5',
-     'qiskit-aqua': '0.6.2',
-     'qiskit': '0.14.1'}
+     'qiskit-ibmq-provider': '0.4.6',
+     'qiskit-aqua': '0.6.4',
+     'qiskit': '0.15.0'}
 
 

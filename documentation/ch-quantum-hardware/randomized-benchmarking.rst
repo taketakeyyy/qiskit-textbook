@@ -124,15 +124,24 @@ sequence
 
 .. parsed-literal::
 
-             ┌───┐┌───┐┌───┐     ┌───┐      ░      ┌───┐     ┌─────┐┌───┐┌───┐┌─┐
-    qr_0: |0>┤ H ├┤ H ├┤ S ├──■──┤ X ├──■───░───■──┤ X ├──■──┤ Sdg ├┤ H ├┤ H ├┤M├
-             └───┘└───┘└───┘┌─┴─┐└─┬─┘┌─┴─┐ ░ ┌─┴─┐└─┬─┘┌─┴─┐└─┬─┬─┘└───┘└───┘└╥┘
-    qr_1: |0>───────────────┤ X ├──■──┤ X ├─░─┤ X ├──■──┤ X ├──┤M├─────────────╫─
-                            └───┘     └───┘ ░ └───┘     └───┘  └╥┘             ║ 
-     cr_0: 0 ═══════════════════════════════════════════════════╬══════════════╩═
-                                                                ║                
-     cr_1: 0 ═══════════════════════════════════════════════════╩════════════════
-                                                                                 
+                              ┌───┐┌───┐┌───┐ ░ ┌───┐┌─────┐┌───┐          ┌─┐     »
+    qr_0: |0>──────────────■──┤ H ├┤ S ├┤ Z ├─░─┤ Z ├┤ Sdg ├┤ H ├──■───────┤M├─────»
+             ┌─────┐┌───┐┌─┴─┐├───┤├───┤├───┤ ░ ├───┤├─────┤├───┤┌─┴─┐┌───┐└╥┘┌───┐»
+    qr_1: |0>┤ Sdg ├┤ H ├┤ X ├┤ H ├┤ S ├┤ Z ├─░─┤ Z ├┤ Sdg ├┤ H ├┤ X ├┤ H ├─╫─┤ S ├»
+             └─────┘└───┘└───┘└───┘└───┘└───┘ ░ └───┘└─────┘└───┘└───┘└───┘ ║ └───┘»
+     cr_0: 0 ═══════════════════════════════════════════════════════════════╩══════»
+                                                                                   »
+     cr_1: 0 ══════════════════════════════════════════════════════════════════════»
+                                                                                   »
+    «         
+    «qr_0: ───
+    «      ┌─┐
+    «qr_1: ┤M├
+    «      └╥┘
+    «cr_0: ═╬═
+    «       ║ 
+    «cr_1: ═╩═
+    «         
 
 
 One can verify that the Unitary representing each RB circuit should be
@@ -159,10 +168,10 @@ simulator.
 
 .. parsed-literal::
 
-    [[-0.-1.j -0.+0.j -0.-0.j -0.+0.j]
-     [-0.-0.j -0.-1.j  0.-0.j  0.+0.j]
-     [-0.+0.j -0.+0.j -0.-1.j  0.+0.j]
-     [-0.-0.j  0.-0.j -0.-0.j -0.-1.j]]
+    [[ 0.+1.j -0.+0.j -0.+0.j -0.+0.j]
+     [-0.+0.j  0.+1.j -0.-0.j  0.+0.j]
+     [ 0.-0.j  0.+0.j  0.+1.j -0.+0.j]
+     [-0.-0.j  0.-0.j  0.-0.j  0.+1.j]]
 
 
 Step 2: Execute the RB sequences (with some noise)
@@ -271,19 +280,19 @@ the parameters :math:`\alpha` and EPC.
 
     Compiling seed 0
     Simulating seed 0
-    After seed 0, alpha: 0.975038, EPC: 0.018722
+    After seed 0, alpha: 0.973921, EPC: 0.019560
     Compiling seed 1
     Simulating seed 1
-    After seed 1, alpha: 0.973533, EPC: 0.019850
+    After seed 1, alpha: 0.970393, EPC: 0.022205
     Compiling seed 2
     Simulating seed 2
-    After seed 2, alpha: 0.975037, EPC: 0.018722
+    After seed 2, alpha: 0.974754, EPC: 0.018935
     Compiling seed 3
     Simulating seed 3
-    After seed 3, alpha: 0.974774, EPC: 0.018920
+    After seed 3, alpha: 0.974771, EPC: 0.018921
     Compiling seed 4
     Simulating seed 4
-    After seed 4, alpha: 0.972476, EPC: 0.020643
+    After seed 4, alpha: 0.974818, EPC: 0.018887
 
 
 Plot the results
@@ -396,10 +405,10 @@ depolarizing. This function is derived in the supplement to [5].
 
 .. parsed-literal::
 
-    Number of u1 gates per Clifford: 0.244214
-    Number of u2 gates per Clifford: 1.024017
-    Number of u3 gates per Clifford: 0.422707
-    Number of cx gates per Clifford: 1.500437
+    Number of u1 gates per Clifford: 0.255895
+    Number of u2 gates per Clifford: 1.037882
+    Number of u3 gates per Clifford: 0.412664
+    Number of cx gates per Clifford: 1.487118
 
 
 .. code:: ipython3
@@ -422,7 +431,7 @@ depolarizing. This function is derived in the supplement to [5].
 
 .. parsed-literal::
 
-    Predicted 2Q Error per Clifford: 1.670159e-02
+    Predicted 2Q Error per Clifford: 1.661579e-02
 
 
 .. code:: ipython3

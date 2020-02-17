@@ -78,10 +78,10 @@ of this section, the number of samples taken for each circuit will be
 
 .. parsed-literal::
 
-    00 becomes {'01': 88, '00': 9785, '10': 126, '11': 1}
-    01 becomes {'01': 9815, '00': 80, '10': 1, '11': 104}
-    10 becomes {'01': 2, '00': 97, '10': 9771, '11': 130}
-    11 becomes {'01': 98, '00': 1, '10': 92, '11': 9809}
+    00 becomes {'00': 9794, '01': 92, '10': 114}
+    01 becomes {'00': 102, '01': 9802, '10': 3, '11': 93}
+    10 becomes {'00': 79, '01': 1, '10': 9822, '11': 98}
+    11 becomes {'00': 1, '01': 109, '10': 108, '11': 9782}
 
 
 Here we find that the correct output is certainly the most dominant.
@@ -126,7 +126,7 @@ fluctuations).
 
 .. parsed-literal::
 
-    {'01': 105, '00': 4860, '10': 94, '11': 4941}
+    {'00': 4897, '01': 86, '10': 98, '11': 4919}
 
 
 In this example we first looked at results for each of the definite
@@ -461,10 +461,10 @@ Again we can run the circuits, and look at the calibration matrix,
 
 .. parsed-literal::
 
-    [[0.82  0.102 0.093 0.008]
-     [0.095 0.788 0.006 0.098]
-     [0.078 0.012 0.809 0.092]
-     [0.007 0.098 0.092 0.802]]
+    [[0.819 0.092 0.098 0.01 ]
+     [0.088 0.806 0.004 0.097]
+     [0.077 0.009 0.793 0.091]
+     [0.016 0.093 0.105 0.802]]
 
 
 This time we find a more interesting matrix, and one that is not
@@ -488,7 +488,7 @@ test.
 
 .. parsed-literal::
 
-    {'01': 909, '00': 4233, '10': 892, '11': 3966}
+    {'00': 4078, '01': 911, '10': 896, '11': 4115}
 
 
 In Qiskit we mitigate for the noise by creating a measurement filter

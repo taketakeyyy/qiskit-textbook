@@ -104,7 +104,7 @@ For example, here are the results when both inputs are ``0``.
 
 .. parsed-literal::
 
-    {'1': 1001, '0': 8999}
+    {'1': 980, '0': 9020}
 
 
 
@@ -131,18 +131,18 @@ We’ll compare across all results to find the most unreliable.
 
     
     Probability of correct answer for inputs 0 0
-    0.8993
+    0.9014
     
     Probability of correct answer for inputs 0 1
-    0.9015
+    0.8994
     
     Probability of correct answer for inputs 1 0
-    0.8959
+    0.8963
     
     Probability of correct answer for inputs 1 1
-    0.8925
+    0.8963
     
-    The lowest of these probabilities was 0.8925
+    The lowest of these probabilities was 0.8963
 
 
 The ``AND`` function above uses the ``ccx`` gate the implement the
@@ -160,11 +160,11 @@ better than for a simple ``ccx``.
 
 .. parsed-literal::
 
-    {'qiskit-terra': '0.11.1',
-     'qiskit-aer': '0.3.4',
+    {'qiskit-terra': '0.12.0',
+     'qiskit-aer': '0.4.0',
      'qiskit-ignis': '0.2.0',
-     'qiskit-ibmq-provider': '0.4.5',
-     'qiskit-aqua': '0.6.2',
-     'qiskit': '0.14.1'}
+     'qiskit-ibmq-provider': '0.4.6',
+     'qiskit-aqua': '0.6.4',
+     'qiskit': '0.15.0'}
 
 

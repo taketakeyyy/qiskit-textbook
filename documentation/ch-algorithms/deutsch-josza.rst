@@ -411,7 +411,7 @@ bit balanced function with hidden bitstring :math:`a = 3`.
 
 .. parsed-literal::
 
-    <qiskit.circuit.instructionset.InstructionSet at 0x7ffcc0026cd0>
+    <qiskit.circuit.instructionset.InstructionSet at 0x7fca508fd1d0>
 
 
 
@@ -468,7 +468,7 @@ for the least-busy device that can handle our circuit.
 
 .. parsed-literal::
 
-    least busy backend:  ibmqx2
+    least busy backend:  ibmq_london
 
 
 .. code:: ipython3
@@ -538,12 +538,12 @@ due to errors in the quantum computation.
 
 .. parsed-literal::
 
-    {'qiskit-terra': '0.11.1',
-     'qiskit-aer': '0.3.4',
+    {'qiskit-terra': '0.12.0',
+     'qiskit-aer': '0.4.0',
      'qiskit-ignis': '0.2.0',
-     'qiskit-ibmq-provider': '0.4.5',
-     'qiskit-aqua': '0.6.2',
-     'qiskit': '0.14.1'}
+     'qiskit-ibmq-provider': '0.4.6',
+     'qiskit-aqua': '0.6.4',
+     'qiskit': '0.15.0'}
 
 
 

@@ -255,7 +255,7 @@ Next we apply our inverse QFT to the counting qubits:
 
 .. parsed-literal::
 
-    <qiskit.circuit.instructionset.InstructionSet at 0x7ff3fcee4650>
+    <qiskit.circuit.instructionset.InstructionSet at 0x7fdfe01add10>
 
 
 
@@ -272,7 +272,7 @@ classical register:
 
 .. parsed-literal::
 
-    <qiskit.circuit.instructionset.InstructionSet at 0x7ff3fcf03190>
+    <qiskit.circuit.instructionset.InstructionSet at 0x7fe000327250>
 
 
 
@@ -338,7 +338,7 @@ Let us now store this as an integer:
 
 .. parsed-literal::
 
-    Register Output = 5
+    Register Output = 11
 
 
 4. Finding the Number of Solutions (M) 
@@ -368,7 +368,7 @@ Or, in code:
 
 .. parsed-literal::
 
-    Theta = 1.96350
+    Theta = 4.31969
 
 
 You may remember that we can get the angle :math:`\theta/2` can from the
@@ -477,12 +477,12 @@ University Press, New York, NY, USA.
 
 .. parsed-literal::
 
-    {'qiskit-terra': '0.11.1',
-     'qiskit-aer': '0.3.4',
+    {'qiskit-terra': '0.12.0',
+     'qiskit-aer': '0.4.0',
      'qiskit-ignis': '0.2.0',
-     'qiskit-ibmq-provider': '0.4.5',
-     'qiskit-aqua': '0.6.2',
-     'qiskit': '0.14.1'}
+     'qiskit-ibmq-provider': '0.4.6',
+     'qiskit-aqua': '0.6.4',
+     'qiskit': '0.15.0'}
 
 
 

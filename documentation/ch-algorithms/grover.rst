@@ -353,7 +353,7 @@ above. First, Initialize the state :math:`|s\rangle`:
 
 .. parsed-literal::
 
-    <qiskit.circuit.instructionset.InstructionSet at 0x7fdb819fe490>
+    <qiskit.circuit.instructionset.InstructionSet at 0x7fbf18dfd1d0>
 
 
 
@@ -370,7 +370,7 @@ Apply the Oracle for :math:`|w\rangle = |00\rangle`:
 
 .. parsed-literal::
 
-    <qiskit.circuit.instructionset.InstructionSet at 0x7fdb81a0d110>
+    <qiskit.circuit.instructionset.InstructionSet at 0x7fbee8083b90>
 
 
 
@@ -385,7 +385,7 @@ Apply a Hadamard operation to both qubits:
 
 .. parsed-literal::
 
-    <qiskit.circuit.instructionset.InstructionSet at 0x7fdb81a0d250>
+    <qiskit.circuit.instructionset.InstructionSet at 0x7fbef99fbed0>
 
 
 
@@ -401,7 +401,7 @@ Apply the reflection :math:`U_s`:
 
 .. parsed-literal::
 
-    <qiskit.circuit.instructionset.InstructionSet at 0x7fdb81a0da50>
+    <qiskit.circuit.instructionset.InstructionSet at 0x7fbf18dfd690>
 
 
 
@@ -416,7 +416,7 @@ Apply the final Hadamard to both qubits:
 
 .. parsed-literal::
 
-    <qiskit.circuit.instructionset.InstructionSet at 0x7fdb81a0dbd0>
+    <qiskit.circuit.instructionset.InstructionSet at 0x7fbf18dfd7d0>
 
 
 
@@ -491,7 +491,7 @@ We can run the circuit on the real device as below.
 
 .. parsed-literal::
 
-    Running on current least busy device:  ibmqx2
+    Running on current least busy device:  ibmq_london
 
 
 .. code:: ipython3
@@ -775,7 +775,7 @@ need to run one iteration.
 
 .. parsed-literal::
 
-    <qiskit.circuit.instructionset.InstructionSet at 0x7fdb81ab4c10>
+    <qiskit.circuit.instructionset.InstructionSet at 0x7fbefa18ec50>
 
 
 
@@ -827,7 +827,7 @@ We can run the circuit on the real device as below.
 
 .. parsed-literal::
 
-    least busy backend:  ibmqx2
+    least busy backend:  ibmq_london
 
 
 .. code:: ipython3
@@ -907,11 +907,11 @@ are due to errors in the quantum computation.
 
 .. parsed-literal::
 
-    {'qiskit-terra': '0.11.1',
-     'qiskit-aer': '0.3.4',
+    {'qiskit-terra': '0.12.0',
+     'qiskit-aer': '0.4.0',
      'qiskit-ignis': '0.2.0',
-     'qiskit-ibmq-provider': '0.4.5',
-     'qiskit-aqua': '0.6.2',
-     'qiskit': '0.14.1'}
+     'qiskit-ibmq-provider': '0.4.6',
+     'qiskit-aqua': '0.6.4',
+     'qiskit': '0.15.0'}
 
 

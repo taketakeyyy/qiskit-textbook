@@ -173,7 +173,7 @@ fraction of the results to be 1. We’ll see how it looks.
 
 .. parsed-literal::
 
-    <qiskit.circuit.instructionset.InstructionSet at 0x7f8bd19d2590>
+    <qiskit.circuit.instructionset.InstructionSet at 0x7f982afdd850>
 
 
 
@@ -204,7 +204,7 @@ code. Let’s draw it below.
 
 .. parsed-literal::
 
-    {'001': 268, '010': 263, '000': 251, '011': 242}
+    {'011': 260, '000': 251, '010': 251, '001': 262}
 
 
 
@@ -277,7 +277,7 @@ the teleportation process is lost.
 
 .. parsed-literal::
 
-    <qiskit.circuit.instructionset.InstructionSet at 0x7f8bd19d2210>
+    <qiskit.circuit.instructionset.InstructionSet at 0x7f982afdd750>
 
 
 
@@ -342,7 +342,7 @@ for a total of three qubits.
 
 .. parsed-literal::
 
-    {'111': 198, '011': 2065, '101': 410, '001': 1647, '110': 106, '100': 254, '010': 1556, '000': 1956}
+    {'110': 258, '100': 492, '011': 1215, '010': 1699, '000': 1954, '111': 207, '101': 434, '001': 1933}
 
 
 
@@ -366,7 +366,7 @@ error-free teleportation.
 
 .. parsed-literal::
 
-    The experimental error rate :  11.81640625 %
+    The experimental error rate :  16.97998046875 %
 
 
 3. References
@@ -386,12 +386,12 @@ Information, Cambridge Series on Information and the Natural Sciences
 
 .. parsed-literal::
 
-    {'qiskit-terra': '0.11.1',
-     'qiskit-aer': '0.3.4',
+    {'qiskit-terra': '0.12.0',
+     'qiskit-aer': '0.4.0',
      'qiskit-ignis': '0.2.0',
-     'qiskit-ibmq-provider': '0.4.5',
-     'qiskit-aqua': '0.6.2',
-     'qiskit': '0.14.1'}
+     'qiskit-ibmq-provider': '0.4.6',
+     'qiskit-aqua': '0.6.4',
+     'qiskit': '0.15.0'}
 
 
 

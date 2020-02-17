@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Created with matplotlib (https://matplotlib.org/) -->
-<svg height="123.4824pt" version="1.1" viewBox="0 0 157.11614 123.4824" width="157.11614pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg height="123.4824pt" version="1.1" viewBox="0 0 173.4785 123.4824" width="173.4785pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
   <style type="text/css">
 *{stroke-linecap:butt;stroke-linejoin:round;}
@@ -11,26 +11,26 @@
  <g id="figure_1">
   <g id="patch_1">
    <path d="M 0 123.4824 
-L 157.11614 123.4824 
-L 157.11614 0 
+L 173.4785 123.4824 
+L 173.4785 0 
 L 0 0 
 z
 " style="fill:#ffffff;"/>
   </g>
   <g id="axes_1">
    <g id="line2d_1">
-    <path clip-path="url(#pd47112d0d1)" d="M 122.64554 43.5608 
-L 145.37104 43.5608 
+    <path clip-path="url(#p3c0d0d4511)" d="M 139.0079 43.5608 
+L 161.7334 43.5608 
 " style="fill:none;stroke:#000000;stroke-linecap:square;stroke-width:2;"/>
    </g>
    <g id="line2d_2">
-    <path clip-path="url(#pd47112d0d1)" d="M 122.64554 89.0118 
-L 145.37104 89.0118 
+    <path clip-path="url(#p3c0d0d4511)" d="M 139.0079 89.0118 
+L 161.7334 89.0118 
 " style="fill:none;stroke:#000000;stroke-linecap:square;stroke-width:2;"/>
    </g>
    <g id="text_1">
-    <g clip-path="url(#pd47112d0d1)">
-     <!-- $qreg_{0}$ -->
+    <g clip-path="url(#p3c0d0d4511)">
+     <!-- ${qreg}_{0}$ -->
      <defs>
       <path d="M 41.703125 8.203125 
 Q 38.09375 3.46875 33.171875 1.015625 
@@ -167,7 +167,7 @@ Q 19.53125 74.21875 31.78125 74.21875
 z
 " id="DejaVuSans-48"/>
      </defs>
-     <g transform="translate(54.90754 48.011777)scale(0.1625 -0.1625)">
+     <g transform="translate(71.2699 48.011777)scale(0.1625 -0.1625)">
       <use xlink:href="#DejaVuSans-Oblique-113"/>
       <use transform="translate(63.476562 0)" xlink:href="#DejaVuSans-Oblique-114"/>
       <use transform="translate(104.589844 0)" xlink:href="#DejaVuSans-Oblique-101"/>
@@ -177,8 +177,8 @@ z
     </g>
    </g>
    <g id="text_2">
-    <g clip-path="url(#pd47112d0d1)">
-     <!-- $qreg_{1}$ -->
+    <g clip-path="url(#p3c0d0d4511)">
+     <!-- ${qreg}_{1}$ -->
      <defs>
       <path d="M 12.40625 8.296875 
 L 28.515625 8.296875 
@@ -194,7 +194,7 @@ L 12.40625 0
 z
 " id="DejaVuSans-49"/>
      </defs>
-     <g transform="translate(54.90754 93.462777)scale(0.1625 -0.1625)">
+     <g transform="translate(71.2699 93.462777)scale(0.1625 -0.1625)">
       <use xlink:href="#DejaVuSans-Oblique-113"/>
       <use transform="translate(63.476562 0)" xlink:href="#DejaVuSans-Oblique-114"/>
       <use transform="translate(104.589844 0)" xlink:href="#DejaVuSans-Oblique-101"/>
@@ -206,8 +206,8 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="pd47112d0d1">
-   <rect height="109.0824" width="142.71614" x="7.2" y="7.2"/>
+  <clipPath id="p3c0d0d4511">
+   <rect height="109.0824" width="159.0785" x="7.2" y="7.2"/>
   </clipPath>
  </defs>
 </svg>

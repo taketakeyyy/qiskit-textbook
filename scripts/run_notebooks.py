@@ -18,7 +18,7 @@ import time
 import nbformat
 from nbconvert.preprocessors import ExecutePreprocessor
 from datetime import datetime
-filepath = "../content/"
+filepath = "../documentation/"
 
 def run_notebook(filename):
     execution_failed = False
